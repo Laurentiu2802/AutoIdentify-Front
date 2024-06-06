@@ -3,14 +3,12 @@ import {jwtDecode} from "jwt-decode";
 
 const TokenManager = {
     interceptor: axios.interceptors.request.use(config => {
-  
-      const accessToken = TokenManager.getAccessToken();
-      if (accessToken) {
-          config.headers.Authorization = `Bearer ${accessToken}`;
-      }
-  
-      return config;
-  }),
+        const accessToken = TokenManager.getAccessToken();
+        if (accessToken) {
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+        return config;
+    }),
 
     getAccessToken: () => localStorage.getItem('accessToken'),
 
@@ -25,8 +23,12 @@ const TokenManager = {
         localStorage.setItem('accessToken', token);
         const claims = jwtDecode(token);
         localStorage.setItem('claims', JSON.stringify(claims));
-
         return claims;
+    },
+
+    getUsername: () => {
+        const claims = TokenManager.getClaims();
+        return claims ? claims.sub : null;
     },
 
     clear: () => {

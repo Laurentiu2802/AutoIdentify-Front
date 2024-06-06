@@ -21,8 +21,9 @@ function logIn(userItem) {
         }
     })
     .then(response => {
-        if (response.data && response.data.accessToken) {
-            const accessToken = response.data.accessToken;
+        console.log(response.data)
+        if (response.data && response.data.token) {
+            const accessToken = response.data.token;
             TokenManager.setAccessToken(accessToken);
             alert("User Logged In");
             window.location.href='/'

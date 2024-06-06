@@ -6,6 +6,7 @@ import SignUp from './Pages/SignUp'
 import Users from './Pages/Users'
 import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
 import LogIn from './Pages/LogIn'
+import Chat from './Components/Chat'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
         <Route path="/SignUp" element={<SignUp/>}/>
         <Route path="/Users" element={<Users/>}/>
         <Route path="/LogIn" element={<LogIn/>}/>
+        <Route path="/Chat" element={<Chat/>}/>
       </Routes>
       </Router>
     </div>
