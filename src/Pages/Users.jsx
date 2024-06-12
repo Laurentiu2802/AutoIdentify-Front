@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserList from "../Components/UsersList";
 import UserService from "../Services/UserService";
+import CreatePost from "../Components/CreatePost";
 
 function Users(){
     const[users, setUsers] = useState([]);
@@ -14,6 +15,7 @@ function Users(){
     return (
         <div>
             <UserList users={users} />
+            <CreatePost></CreatePost>
         </div>
     )
 }
