@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
 import PostService from "../Services/PostService";
-import TokenManager from "../Services/TokenManager";
+import PostItem from "./PostItem";
 
-
-function CreatePost() {
-
-    const [caption, setCaption] = useState('');
-    const [category, setCategory] = useState('');
-    const [brand, setBrand] = useState('');
-    const [model, setModel] = useState('');
-    const [userID, setUserID] = useState();
+function SearchPosts() {
+    const [categoryID, setCategoryID] = useState('');
+    const [carBrandID, setCarBrandID] = useState('');
+    const [carModelID, setCarModelID] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
     const [models, setModels] = useState([]);
-    const claims = TokenManager.getClaims();
 
-
-    const getUserDetails = () => {
-        if (claims?.studentId) {
-            setUserID(claims.studentId);
-            console.log("Got the Id!", claims.studentId);
-        } else {
-            console.log("No user logged in or missing studentId in claims", claims);
+    useEffect(() => {
+        async function fetchData() {
+            await Promise.all([
+                getCategories(),
+                getBrands()
+            ]);
         }
-    }
+        fetchData();
+    }, []);
 
     const getCategories = async () => {
         try {
@@ -58,6 +55,7 @@ function CreatePost() {
             setBrands([]);
         }
     }
+
     const getModels = async (brandID) => {
         try {
             const response = await PostService.getCarModels(brandID);
@@ -73,92 +71,90 @@ function CreatePost() {
             setModels([]);
         }
     }
-    useEffect(() => {
-        getUserDetails();
-        getCategories();
-        getBrands();
-    }, []);
 
-    const addPost = (post) =>{
-        PostService.createPost(post
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        setLoading(true);
 
-        )
-        .then(data => {
-            console.log('Post Created', data)
-        })
-        .catch(response =>{
-            alert(response.data);
-        })
-        .finally(() => {
-            console.log('Post Created', data)
-        });
-    };
+        try {
+            const response = await PostService.getPostsByCriteria(null, categoryID, carBrandID, carModelID);
+            console.log("Search results:", response);
+            setSearchResults(response.posts || []); // Set search results or empty array if no posts found
 
-    const handleSubmit = async (e) => {
-        
-        e.preventDefault()
-
-        const post = {
-            description: caption,
-            userID: userID,
-            categoryID: category,
-            carBrandID: brand,
-            carModelID: model,
-        };
-
-        try{
-            await addPost(post);
-            console.log('Post Created', post);
         } catch (error) {
-            console.error('Error creating psot', error);
-            alert(error.code);
+            console.error("Error searching posts:", error);
+            setSearchResults([]);
+        } finally {
+            setLoading(false);
         }
-
     };
+
+    const handleCategoryChange = (e) => {
+        const selectedCategory = e.target.value;
+        setCategoryID(selectedCategory);
+    };
+
     const handleBrandChange = (e) => {
         const selectedBrand = e.target.value;
-        setBrand(selectedBrand);
+        setCarBrandID(selectedBrand);
         getModels(selectedBrand);
     };
-    return(
-        <div>
-            <h2>Create Post</h2>
-            <form onSubmit={handleSubmit}>
 
+    const handleModelChange = (e) => {
+        const selectedModel = e.target.value;
+        setCarModelID(selectedModel);
+    };
+
+    return (
+        <div>
+            <h2>Search Posts</h2>
+            <form onSubmit={handleSearch}>
                 <div>
-                    <textarea id="caption" onChange={(e) => setCaption(e.target.value)}/>
-                    <select id="category" onChange={(e) => setCategory(e.target.value)}>
+                    <label>Category:</label>
+                    <select value={categoryID} onChange={handleCategoryChange}>
                         <option value="">Select Category</option>
                         {categories.map(cat => (
                             <option key={cat.categoryID} value={cat.categoryID}>{cat.categoryName}</option>
                         ))}
                     </select>
-                    <select id="brand" onChange={handleBrandChange}>
+                </div>
+                <div>
+                    <label>Brand:</label>
+                    <select value={carBrandID} onChange={handleBrandChange}>
                         <option value="">Select Brand</option>
                         {brands.map(br => (
                             <option key={br.brandID} value={br.brandID}>{br.brandName}</option>
                         ))}
                     </select>
-                    <select id="model" onChange={(e) => setModel(e.target.value)}>
+                </div>
+                <div>
+                    <label>Model:</label>
+                    <select value={carModelID} onChange={handleModelChange}>
                         <option value="">Select Model</option>
                         {models.map(md => (
                             <option key={md.modelID} value={md.modelID}>{md.modelName}</option>
                         ))}
                     </select>
-                    <button type="submit">Create Post</button>
                 </div>
-
+                <div>
+                    <button type="submit" disabled={loading}>
+                        {loading ? 'Searching...' : 'Search'}
+                    </button>
+                </div>
             </form>
+
+            <div>
+                <h3>Search Results:</h3>
+                {loading && <p>Loading...</p>}
+                {!loading && searchResults.length === 0 && <p>No posts found.</p>}
+                <ul>
+                {searchResults.map(post => (
+                <PostItem key={post.postID} post={post} />
+                    ))}
+                </ul>
+            </div>
         </div>
-    )
+    );
 }
 
-export default CreatePost;
-
-
-//userID
-//categoryId
-//carBrandId
-//carModelId
-//caption
-//
+export default SearchPosts;

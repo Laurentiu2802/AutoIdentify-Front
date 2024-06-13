@@ -10,7 +10,19 @@ function getAllUsers(page = 0, size = 10){
 
 function createUser(userItem) {
     return axios.post(`${hostname}/users`, userItem)
-    .then(response => response .data)
+    .then(response => response.data)
+}
+function getUserDetails(userID){
+    return axios.get(`${hostname}/users/userDetails/${userID}`,{
+        withCredentials: true,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        }
+    })
+    .then(response => response.data)
+    .catch(error => {
+        console.log("Error fetching user details: ", error)
+    });
 }
 
 function logIn(userItem) {
@@ -43,5 +55,6 @@ function logIn(userItem) {
 export default{
     getAllUsers,
     createUser,
-    logIn
+    logIn,
+    getUserDetails,
 }

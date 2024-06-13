@@ -7,6 +7,8 @@ import Users from './Pages/Users'
 import {Routes, Route, BrowserRouter as Router} from "react-router-dom";
 import LogIn from './Pages/LogIn'
 import Chat from './Components/Chat'
+import Posts from './Pages/Posts'
+import SearchPosts from './Components/SearchPosts'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -20,6 +22,8 @@ function App() {
         <Route path="/Users" element={<Users/>}/>
         <Route path="/LogIn" element={<LogIn/>}/>
         <Route path="/Chat" element={<Chat/>}/>
+        <Route path="/Posts" element={<Posts/>}/>
+        <Route path="/SearchPosts" element={<SearchPosts/>}/>
       </Routes>
       </Router>
     </div>

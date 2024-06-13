@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import UserList from "../Components/UsersList";
 import UserService from "../Services/UserService";
 import CreatePost from "../Components/CreatePost";
+import PostList from "../Components/PostList";
 
 function Users(){
     const[users, setUsers] = useState([]);
