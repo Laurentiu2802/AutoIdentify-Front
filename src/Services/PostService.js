@@ -39,8 +39,13 @@ function getPostsByCriteria(postID, categoryID, carBrandID, carModelID) {
         .then(response => response.data)
         .catch(error => {
             console.error("Error searching posts:", error);
-            throw error; // Optionally re-throw or handle the error in your component
+            throw error;
         });
+}
+
+function getUserPostCounts() {
+    return axios.get(`${hostname}/posts/statistics`)
+        .then(response => response.data);
 }
 export default{
     createPost,
@@ -48,5 +53,6 @@ export default{
     getCarBrands,
     getCarModels,
     getPosts,
-    getPostsByCriteria
+    getPostsByCriteria,
+    getUserPostCounts
 }

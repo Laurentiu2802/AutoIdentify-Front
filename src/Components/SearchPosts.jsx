@@ -79,8 +79,8 @@ function SearchPosts() {
         try {
             const response = await PostService.getPostsByCriteria(null, categoryID, carBrandID, carModelID);
             console.log("Search results:", response);
-            setSearchResults(response.posts || []); // Set search results or empty array if no posts found
-
+            setSearchResults(response.posts || []); 
+            
         } catch (error) {
             console.error("Error searching posts:", error);
             setSearchResults([]);

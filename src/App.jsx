@@ -9,6 +9,7 @@ import LogIn from './Pages/LogIn'
 import Chat from './Components/Chat'
 import Posts from './Pages/Posts'
 import SearchPosts from './Components/SearchPosts'
+import Statistics from './Pages/Statistics'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,7 @@ function App() {
         <Route path="/Chat" element={<Chat/>}/>
         <Route path="/Posts" element={<Posts/>}/>
         <Route path="/SearchPosts" element={<SearchPosts/>}/>
+        <Route path="/Statistics" element={<Statistics/>}/>
       </Routes>
       </Router>
     </div>
