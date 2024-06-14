@@ -47,6 +47,15 @@ function getUserPostCounts() {
     return axios.get(`${hostname}/posts/statistics`)
         .then(response => response.data);
 }
+
+const getPostById = (id) => {
+    return axios.get(`${hostname}/posts/${id}`)
+        .then(response => response.data)
+        .catch(error => {
+            console.error("Error fetching post by ID:", error);
+            throw error; 
+        });
+};
 export default{
     createPost,
     getCarCategories,
@@ -54,5 +63,6 @@ export default{
     getCarModels,
     getPosts,
     getPostsByCriteria,
-    getUserPostCounts
+    getUserPostCounts,
+    getPostById
 }

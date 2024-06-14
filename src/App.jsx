@@ -10,6 +10,7 @@ import Chat from './Components/Chat'
 import Posts from './Pages/Posts'
 import SearchPosts from './Components/SearchPosts'
 import Statistics from './Pages/Statistics'
+import Post from './Pages/Post'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -26,6 +27,7 @@ function App() {
         <Route path="/Posts" element={<Posts/>}/>
         <Route path="/SearchPosts" element={<SearchPosts/>}/>
         <Route path="/Statistics" element={<Statistics/>}/>
+        <Route path="/Post/:id" element={<Post/>}/>
       </Routes>
       </Router>
     </div>

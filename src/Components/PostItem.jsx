@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import LikeService from "../Services/LikeService";
 import TokenManager from "../Services/TokenManager";
+import { Link } from "react-router-dom";
 
 function PostItem(props) {
     const [isLiked, setIsLiked] = useState(false);
@@ -38,6 +39,9 @@ function PostItem(props) {
           <p>Likes: {props.post.likes}</p>
           <button onClick={handleLike}>{isLiked ? "Unlike" : "Like"}</button>
         </div>
+        <Link to= {`/Post/${props.post.postID}`}>
+            <button>View Post</button>
+        </Link>
         </li>
     )
 }
