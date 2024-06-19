@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import PostService from "../Services/PostService";
 import PostList from "../Components/PostList";
+import Navbar from "../Components/Navbar";
+import styles from "./posts.module.css";
+
 
 function Posts(){
     const[posts, setPosts] = useState([]);
@@ -18,7 +21,8 @@ function Posts(){
     }, []);
 
     return (
-        <div>
+        <div className={styles.page}>
+            <Navbar/>
             <PostList posts={posts} />
         </div>
     )

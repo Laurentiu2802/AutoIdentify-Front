@@ -1,0 +1,21 @@
+.list{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.left_to_right{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+.left{
+    width: 30%;
+}
+.mid{
+    width: 40%;
+    margin-top: 40px;
+}
+.right{
+    width: 30%;
+}

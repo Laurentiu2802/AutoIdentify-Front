@@ -2,6 +2,12 @@ import React, {useState, useEffect} from "react";
 import LikeService from "../Services/LikeService";
 import TokenManager from "../Services/TokenManager";
 import { Link } from "react-router-dom";
+import styles from "./postItem.module.css";
+import user from '../assets/images/user.png'
+import likeImage from '../assets/images/like.png';
+import unlikeImage from '../assets/images/unlike.png';
+
+
 
 function PostItem(props) {
     const [isLiked, setIsLiked] = useState(false);
@@ -15,34 +21,64 @@ function PostItem(props) {
   
     const handleLike = async () => {
       try {
-        if (isLiked) {
-          await LikeService.unlikePost(claims.studentId, props.post.postID);
-          props.post.likes -= 1;
-        } else {
-          await LikeService.likePost(claims.studentId, props.post.postID);
-          props.post.likes += 1;
-        }
-        setIsLiked(prevIsLiked => !prevIsLiked);
+          if (isLiked) {
+              await LikeService.unlikePost(claims.studentId, props.post.postID);
+              props.post.likes -= 1;
+          } else {
+              await LikeService.likePost(claims.studentId, props.post.postID);
+              props.post.likes += 1;
+          }
+          setIsLiked(prevIsLiked => !prevIsLiked);
       } catch (error) {
-        console.error('Error interacting with the like functionality:', error);
+          console.error('Error interacting with the like functionality:', error);
       }
-    };
+  };
     return(
-        <li>
-            <p> Post ID: {props.post.postID}</p>
-            <p> Description: {props.post.description}</p>
-            <p> Brand: {props.post.carBrand.brandName}</p>
-            <p> Model: {props.post.carModel.modelName}</p>
-            <p> Category: {props.post.category.categoryName}</p>
-            <p> User: {props.post.user.username}</p>
-            <div>
-          <p>Likes: {props.post.likes}</p>
-          <button onClick={handleLike}>{isLiked ? "Unlike" : "Like"}</button>
-        </div>
-        <Link to= {`/Post/${props.post.postID}`}>
-            <button>View Post</button>
-        </Link>
+        <li className={styles.post}>
+          <Link to={`/Post/${props.post.postID}`} className={styles.linkWrapper}>
+          <div className={styles.post_top}>
+
+            <div className={styles.post_top_left}>
+              <img src={user} alt='Logo' className={styles['user_photo']}/>
+
+              <div className={styles.username}>
+
+                <p>{props.post.user.username}</p>
+
+                <div className={styles.username_bot}>
+                  <p>{props.post.carBrand.brandName}</p>
+                  <p>{props.post.carModel.modelName}</p>                  
+                </div>
+
+              </div>
+
+            </div>
+
+            <div className={styles.post_top_right}>
+              <p>{props.post.category.categoryName}</p>
+            </div>
+
+          </div>
+
+          <div className={styles.post_mid}>
+            <p>{props.post.description}</p>
+          </div>
+
+          <div className={styles.post_bot}>
+            
+              <p>{props.post.likes}</p>
+              <img
+                        src={isLiked ? unlikeImage : likeImage}
+                        alt={isLiked ? "Unlike" : "Like"}
+                        onClick={handleLike}
+                        className={styles.likeButton}
+                        style={{ cursor: 'pointer' }}
+                    />
+            
+          </div>
+          </Link>
         </li>
+        
     )
 }
 

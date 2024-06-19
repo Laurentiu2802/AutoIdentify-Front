@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import styles from "./loginItem.module.css";
 
 
 function LogInItem({ addUser }) {
@@ -25,12 +25,11 @@ function LogInItem({ addUser }) {
   };
 
   return (
-    <nav>
-      <div >
+      <div className={styles.login_box}>   
         <h2>Log in</h2>
           <form onSubmit={handleSubmit}>
 
-            <div>
+            <div className={styles.input_box}>
               <label htmlFor="username">Username</label>
                 <input
                   type="text"
@@ -43,7 +42,7 @@ function LogInItem({ addUser }) {
                 />
             </div>
 
-            <div>
+            <div className={styles.input_box}>
               <label htmlFor="password">Password</label>
               <input
                 type="password"
@@ -55,14 +54,14 @@ function LogInItem({ addUser }) {
                 onChange={handleInputChange}
               />
             </div>
-            <div>
-              <button type="submit">
-                Submit
-              </button>
-            </div>
+            <a className = {styles.signup_link} href="/SignUp"> Create account.</a>
+            
+            <button type="submit">
+              Submit
+            </button>
+            
           </form>
       </div>
-    </nav>
 
   );
 }

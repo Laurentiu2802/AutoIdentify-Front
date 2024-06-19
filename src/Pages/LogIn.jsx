@@ -1,6 +1,8 @@
 import UserService from "../Services/UserService";
 import LogInItem from "../Components/LogInItem";
 import { useState } from "react";
+import styles from "./login.module.css";
+
 
 function LogIn(){
     const[errorSavingUser, setErrorSavingUser] = useState(false)
@@ -22,7 +24,7 @@ function LogIn(){
         })
     };
     return(
-        <div>
+        <div className={styles.container}>   
             <div>
                 <LogInItem addUser={addUser} /> {}
             </div>    
