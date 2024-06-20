@@ -28,9 +28,9 @@ function InputItem({addUser}) {
     return (
         <div className={styles.signup_box}>
 
-          <h2>Sign up</h2>
+          <h2 className={styles.title}>Sign up</h2>
 
-          <form  onSubmit={handleSubmit}>
+          <form  onSubmit={handleSubmit} className={styles.signin_form}>
             <div className={styles.input_box}>
               <label htmlFor="username">Username</label>
                 <input
@@ -91,7 +91,7 @@ function InputItem({addUser}) {
               onChange={handleInputChange}
             /> */}
             <a className = {styles.login_link} href="/Login"> Log in here!</a>
-            <button type="submit">
+            <button type="submit" className={styles.signin_button}>
                 Submit
             </button>
           </form>

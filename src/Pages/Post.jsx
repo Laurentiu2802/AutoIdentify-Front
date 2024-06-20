@@ -3,6 +3,10 @@ import { useParams } from "react-router-dom";
 import PostService from "../Services/PostService";
 import CommentService from "../Services/CommentService";
 import TokenManager from "../Services/TokenManager"; // Assuming TokenManager.js is in this path
+import styles from "./post.module.css";
+import Navbar from "../Components/Navbar";
+import user from '../assets/images/user.png'
+
 
 function Post() {
     const { id } = useParams();
@@ -64,47 +68,76 @@ function Post() {
     }
 
     return (
-        <div>
-            <h2>Post Details</h2>
-            <p>Post ID: {post.postID}</p>
-            <p>Description: {post.description}</p>
-            <p>Brand: {post.carBrand.brandName}</p>
-            <p>Model: {post.carModel.modelName}</p>
-            <p>Category: {post.category.categoryName}</p>
-            <p>User: {post.user.username}</p>
-            <p>Likes: {post.likes}</p>
+        <div className={styles.page}>
+            <Navbar/>
 
-            {/* Display comments if available */}
-            {loadingComments ? (
-                <p>Loading comments...</p>
-            ) : comments.length > 0 ? (
-                <div>
-                    <h3>Comments</h3>
-                    <ul>
-                        {comments.map(comment => (
-                            <li key={comment.commentID}>
-                                {/* Display the username from comment.user or directly from comment */}
-                                <p>User: {comment.user ? comment.user.username : comment.username}</p>
-                                <p>Description: {comment.description}</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>//dsada
-            ) : (
-                <p>No comments yet.</p>
-            )}
+            <div className={styles.post_details}>
 
-            {/* Comment submission form */}
-            <form onSubmit={handleCommentSubmit}>
-                <textarea
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Enter your comment..."
-                    required
-                />
-                <button type="submit">Add Comment</button>
-                {errorSavingComment && <p>Error saving comment. Please try again.</p>}
-            </form>
+                <div className={styles.post}>
+                    <div className={styles.post_header}>
+                        <img src={user} alt='Logo' className={styles['user_photo']}/>
+
+                        <div className={styles.name}>
+                            <p>{post.user.username}</p>
+                            <div className={styles.brand_model}>
+                                <p>{post.carBrand.brandName}</p>
+                                <p>{post.carModel.modelName}</p>
+                            </div>
+                        </div>
+                        <div className={styles.category}>
+                            <p>{post.category.categoryName}</p>
+                        </div>
+                        
+                    </div>
+
+                    <div className={styles.post_content}>
+                        <p>{post.description}</p>
+                    </div>
+
+                    
+                    {/* <p>Likes: {post.likes}</p> */}
+                </div>
+
+
+                <div className={styles.comment_section}>
+
+                    <div className={styles.comments}>
+                        {loadingComments ? (
+                        <p>Loading comments...</p>
+                        ) : comments.length > 0 ? (
+                            <div>
+                                <h3>Comments</h3>
+                                <ul>
+                                    {comments.map(comment => (
+                                        <li key={comment.commentID}>
+                                            {/* Display the username from comment.user or directly from comment */}
+                                            <p>User: {comment.user ? comment.user.username : comment.username}</p>
+                                            <p>Description: {comment.description}</p>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>//dsada
+                        ) : (
+                            <p>No comments yet.</p>
+                        )}
+                    </div>
+
+                    <form onSubmit={handleCommentSubmit} className={styles.comment_form}>
+                        <textarea
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            className={styles.comment_input}
+                            placeholder="Enter your comment..."
+                            required
+                        />
+                        <button type="submit" className={styles.comment_button}>Add Comment</button>
+                        {errorSavingComment && <p>Error saving comment. Please try again.</p>}
+                    </form>
+                    
+
+                </div>
+            </div>
+            
         </div>
     );
 }

@@ -18,25 +18,26 @@
 .input_box label{
     font-size: 20px;
 }
-h2{
+.title{
   color: white;  
   font-size: 30px;
 }
-form{
+.signin_form{
     width: 100%;
-    margin-top: 0px;
+    margin-bottom: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: #213547;
 }
-button{
+.signin_button{
     margin-top: 90px;
     width: 50%;
     height: 50px;
     background-color: #213547;
     color: white;
     font-size: 20px;
+    border-radius: 12px;
 }
 input{
     border: none;

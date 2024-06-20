@@ -11,8 +11,12 @@
 }
 .left{
     width: 30%;
+    display: flex;
+    justify-content: center;
 }
 .mid{
+    display: flex;
+    flex-direction: column;
     width: 40%;
     margin-top: 40px;
 }

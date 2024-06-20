@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import PostService from "../Services/PostService";
-import PostItem from "./PostItem";
+import styles from "./searchPosts.module.css";
 
-function SearchPosts() {
+
+function SearchPosts({ onSearch }) {
     const [categoryID, setCategoryID] = useState('');
     const [carBrandID, setCarBrandID] = useState('');
     const [carModelID, setCarModelID] = useState('');
-    const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(false);
     const [categories, setCategories] = useState([]);
     const [brands, setBrands] = useState([]);
@@ -25,7 +25,6 @@ function SearchPosts() {
     const getCategories = async () => {
         try {
             const response = await PostService.getCarCategories();
-            console.log("Fetched categories:", response);
             if (response && Array.isArray(response.categories)) {
                 setCategories(response.categories);
             } else {
@@ -36,12 +35,11 @@ function SearchPosts() {
             console.error("Error fetching categories", error);
             setCategories([]);
         }
-    }
+    };
 
     const getBrands = async () => {
         try {
             const response = await PostService.getCarBrands();
-            console.log("Fetched brands:", response);
             if (response && Array.isArray(response.brands)) {
                 setBrands(response.brands);
             } else if (response && Array.isArray(response.carBrands)) {
@@ -54,12 +52,11 @@ function SearchPosts() {
             console.error("Error fetching brands", error);
             setBrands([]);
         }
-    }
+    };
 
     const getModels = async (brandID) => {
         try {
             const response = await PostService.getCarModels(brandID);
-            console.log("Fetched models:", response);
             if (response && Array.isArray(response.carModels)) {
                 setModels(response.carModels);
             } else {
@@ -70,20 +67,16 @@ function SearchPosts() {
             console.error("Error fetching models", error);
             setModels([]);
         }
-    }
+    };
 
     const handleSearch = async (e) => {
         e.preventDefault();
         setLoading(true);
 
         try {
-            const response = await PostService.getPostsByCriteria(null, categoryID, carBrandID, carModelID);
-            console.log("Search results:", response);
-            setSearchResults(response.posts || []); 
-            
+            await onSearch(categoryID, carBrandID, carModelID);
         } catch (error) {
             console.error("Error searching posts:", error);
-            setSearchResults([]);
         } finally {
             setLoading(false);
         }
@@ -106,10 +99,10 @@ function SearchPosts() {
     };
 
     return (
-        <div>
-            <h2>Search Posts</h2>
-            <form onSubmit={handleSearch}>
-                <div>
+        <div className={styles.search}>
+            <h2>Filter</h2>
+            <form onSubmit={handleSearch} className={styles.search_form}>
+                <div className={styles.dropbox}>
                     <label>Category:</label>
                     <select value={categoryID} onChange={handleCategoryChange}>
                         <option value="">Select Category</option>
@@ -118,7 +111,7 @@ function SearchPosts() {
                         ))}
                     </select>
                 </div>
-                <div>
+                <div className={styles.dropbox}>
                     <label>Brand:</label>
                     <select value={carBrandID} onChange={handleBrandChange}>
                         <option value="">Select Brand</option>
@@ -127,7 +120,7 @@ function SearchPosts() {
                         ))}
                     </select>
                 </div>
-                <div>
+                <div className={styles.dropbox}>
                     <label>Model:</label>
                     <select value={carModelID} onChange={handleModelChange}>
                         <option value="">Select Model</option>
@@ -137,22 +130,11 @@ function SearchPosts() {
                     </select>
                 </div>
                 <div>
-                    <button type="submit" disabled={loading}>
+                    <button type="submit" disabled={loading} className={styles.search_button}>
                         {loading ? 'Searching...' : 'Search'}
                     </button>
                 </div>
             </form>
-
-            <div>
-                <h3>Search Results:</h3>
-                {loading && <p>Loading...</p>}
-                {!loading && searchResults.length === 0 && <p>No posts found.</p>}
-                <ul>
-                {searchResults.map(post => (
-                <PostItem key={post.postID} post={post} />
-                    ))}
-                </ul>
-            </div>
         </div>
     );
 }

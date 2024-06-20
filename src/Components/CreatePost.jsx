@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PostService from "../Services/PostService";
 import TokenManager from "../Services/TokenManager";
+import styles from "./createPost.module.css";
+
 
 
 function CreatePost() {
@@ -121,35 +123,40 @@ function CreatePost() {
         getModels(selectedBrand);
     };
     return(
-        <div>
-            <h2>Create Post</h2>
-            <form onSubmit={handleSubmit}>
+        
+        <form onSubmit={handleSubmit} className={styles.create_post}>
 
-                <div>
-                    <textarea id="caption" onChange={(e) => setCaption(e.target.value)}/>
-                    <select id="category" onChange={(e) => setCategory(e.target.value)}>
+            <div className={styles.wrapper}>
+
+                <div className={styles.selections}>
+                    <select id="category" onChange={(e) => setCategory(e.target.value)} className={styles.choice}>
                         <option value="">Select Category</option>
                         {categories.map(cat => (
                             <option key={cat.categoryID} value={cat.categoryID}>{cat.categoryName}</option>
                         ))}
                     </select>
-                    <select id="brand" onChange={handleBrandChange}>
+                    <select id="brand" onChange={handleBrandChange} className={styles.choice}>
                         <option value="">Select Brand</option>
                         {brands.map(br => (
                             <option key={br.brandID} value={br.brandID}>{br.brandName}</option>
                         ))}
                     </select>
-                    <select id="model" onChange={(e) => setModel(e.target.value)}>
+                    <select id="model" onChange={(e) => setModel(e.target.value)} className={styles.choice}>
                         <option value="">Select Model</option>
                         {models.map(md => (
                             <option key={md.modelID} value={md.modelID}>{md.modelName}</option>
                         ))}
                     </select>
-                    <button type="submit">Create Post</button>
                 </div>
+                
+                <textarea id="caption" onChange={(e) => setCaption(e.target.value)} placeholder="Write a post" className={styles.text}/>
+                
+                <button type="submit" className={styles.create_post_button}>Create Post!</button>
 
-            </form>
-        </div>
+            </div>
+
+        </form>
+        
     )
 }
 

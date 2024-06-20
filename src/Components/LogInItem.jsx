@@ -26,8 +26,8 @@ function LogInItem({ addUser }) {
 
   return (
       <div className={styles.login_box}>   
-        <h2>Log in</h2>
-          <form onSubmit={handleSubmit}>
+        <h2 className={styles.title}>Log in</h2>
+          <form onSubmit={handleSubmit} className={styles.login_form}>
 
             <div className={styles.input_box}>
               <label htmlFor="username">Username</label>
@@ -56,7 +56,7 @@ function LogInItem({ addUser }) {
             </div>
             <a className = {styles.signup_link} href="/SignUp"> Create account.</a>
             
-            <button type="submit">
+            <button type="submit" className={styles.login_button}>
               Submit
             </button>
             

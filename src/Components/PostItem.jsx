@@ -17,7 +17,7 @@ function PostItem(props) {
       LikeService.hasUserLikedPost(claims.studentId, props.post.postID)
         .then(response => setIsLiked(response.liked))
         .catch(error => console.error('Error checking if liked:', error));
-    }, []);
+    }, [claims.studentId, props.post.postID]);
   
     const handleLike = async () => {
       try {
@@ -63,20 +63,19 @@ function PostItem(props) {
           <div className={styles.post_mid}>
             <p>{props.post.description}</p>
           </div>
-
+          </Link>
           <div className={styles.post_bot}>
             
-              <p>{props.post.likes}</p>
-              <img
-                        src={isLiked ? unlikeImage : likeImage}
-                        alt={isLiked ? "Unlike" : "Like"}
-                        onClick={handleLike}
-                        className={styles.likeButton}
-                        style={{ cursor: 'pointer' }}
-                    />
-            
-          </div>
-          </Link>
+            <p>{props.post.likes}</p>
+            <img
+                      src={isLiked ? unlikeImage : likeImage}
+                      alt={isLiked ? "Unlike" : "Like"}
+                      onClick={handleLike}
+                      className={styles.likeButton}
+                      style={{ cursor: 'pointer' }}
+                  />
+          
+        </div>
         </li>
         
     )

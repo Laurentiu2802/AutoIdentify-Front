@@ -21,7 +21,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp/>}/>      
           <Route path="/Users" element={<Users/>}/>    
           <Route path="/LogIn" element={<LogIn/>}/>
-          <Route path="/Chat" element={<Chat/>}/>
+          <Route path="/Chat" element={<Chat/>}/> {/*design la chatroom*/}
           <Route path="/Posts" element={<Posts/>}/>   {/* TODO    Ia din users create post, search post*/}
           <Route path="/SearchPosts" element={<SearchPosts/>}/>  {/* TODO  */}
           <Route path="/Statistics" element={<Statistics/>}/>   
