@@ -9,6 +9,7 @@ import SearchPosts from './Components/SearchPosts'
 import Statistics from './Pages/Statistics'
 import Post from './Pages/Post'
 import './App.css'
+import CategoryPage from './Pages/Category';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,10 +23,11 @@ function App() {
           <Route path="/Users" element={<Users/>}/>    
           <Route path="/LogIn" element={<LogIn/>}/>
           <Route path="/Chat" element={<Chat/>}/> {/*design la chatroom*/}
-          <Route path="/Posts" element={<Posts/>}/>   {/* TODO    Ia din users create post, search post*/}
-          <Route path="/SearchPosts" element={<SearchPosts/>}/>  {/* TODO  */}
-          <Route path="/Statistics" element={<Statistics/>}/>   
-          <Route path="/Post/:id" element={<Post/>}/>   {/* TODO   Design postare + comentarii */}
+          <Route path="/Posts" element={<Posts/>}/>   
+          <Route path="/SearchPosts" element={<SearchPosts/>}/>  
+          <Route path="/Statistics" element={<Statistics/>}/>
+          <Route path="/Category" element={<CategoryPage/>}/>   
+          <Route path="/Post/:id" element={<Post/>}/>   
         </Routes>
       </Router>
     </div>

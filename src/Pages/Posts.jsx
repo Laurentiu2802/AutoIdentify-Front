@@ -12,7 +12,7 @@ function Posts(){
     useEffect(() => {
         PostService.getPosts()
         .then( data => {
-            console.log("PULAAAAAAA =>", data.posts);
+            console.log("Success =>", data.posts);
             setPosts(data.posts);
         })
         .catch(error => {
