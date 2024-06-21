@@ -16,26 +16,27 @@ function Navbar () {
             </div>
 
             <div className={styles['right-container']}>
-                <ul className={styles['button-list']}>
+                {/* <ul className={styles['button-list']}>
                     <>
                         <li><a href='/Home'>Home</a></li>
                         <li><a href="/LogIn">Cacamaca momentan</a></li>
                         <li><a href="/Chat">ChatRoom</a></li>
-                    </>
-                    {/* {accessToken && claims.roles && claims.roles.includes("ADMIN") && (
+                    </> */}
+                    {accessToken && claims.roles && claims.roles.includes("ADMIN") && (
                         <>
                             <li><a href="/Statistics">Statistics</a></li>
+                            <li><a href="/Category">Criteria Management</a></li>
                         </>
 
                     )}
                     {accessToken && claims.roles && claims.roles.includes("USER") && (
                         <>
-                            <li><a href='/Home'>Home</a></li>
-                            <li><a href="/Profile">Profile</a></li>
-                            <li><a href="/Messages">Messages</a></li>
+                            <li><a href='/Posts'>Posts</a></li>
+                            <li><a href="/">Profile</a></li>
+                            <li><a href="/Chat">Chat room</a></li>
                         </>
-                    )} */}
-                </ul>
+                    )}
+                {/* </ul> */}
             </div>
         </nav>
     );

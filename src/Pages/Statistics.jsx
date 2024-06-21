@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PostService from '../Services/PostService';
-import Chart from 'chart.js';
+import { Chart, ArcElement, Tooltip, Legend } from 'chart.js';
+
+Chart.register(ArcElement, Tooltip, Legend);
 
 const UserPostCountPage = () => {
     const [userPostCounts, setUserPostCounts] = useState([]);

@@ -44,12 +44,12 @@ function logIn(userItem) {
         }
     })
     .catch(err => {
-        if (err.response === undefined) {
-            alert(err);
-        } else if (err.response.status === 401) {
-            alert('Invalid credentials');
+        if (err.response && err.response.status === 401) {
+          throw new Error('Invalid credentials');
+        } else {
+          throw err;
         }
-    });
+      });
 }
 
 export default{

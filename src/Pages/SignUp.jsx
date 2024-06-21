@@ -4,15 +4,14 @@ import InputItem from "../Components/InputItem";
 
 function SignUp(){
     const addUser = (user) => {
-
         UserService.createUser(user)
         .then(data => {
             console.log(`User created: `, data);
+            alert('User created'); 
         })
         .catch(response => {
             const data = response.response.data;
-            if(data.errors.find(error => error.error === 'USER_DUPLICATE')){
-            }
+            alert('An error occurred'); 
         })
         .finally(() => {
             console.log('User created');
@@ -22,7 +21,7 @@ function SignUp(){
     return(
         <div className="container">
             <div className="inner">
-                <InputItem addUser={addUser} /> {}
+                <InputItem addUser={addUser} />
             </div>
         </div>
     );
