@@ -18,11 +18,11 @@ function App() {
     <div className='App'>
       <Router>
         <Routes>
-          <Route path="/" element={<SignUp/>}/>    
+          <Route path="/" element={<LogIn/>}/>    
           <Route path="/SignUp" element={<SignUp/>}/>      
           <Route path="/Users" element={<Users/>}/>    
           <Route path="/LogIn" element={<LogIn/>}/>
-          <Route path="/Chat" element={<Chat/>}/> {/*design la chatroom*/}
+          <Route path="/Chat" element={<Chat/>}/> 
           <Route path="/Posts" element={<Posts/>}/>   
           <Route path="/SearchPosts" element={<SearchPosts/>}/>  
           <Route path="/Statistics" element={<Statistics/>}/>

@@ -54,7 +54,7 @@ function LogInItem({ addUser }) {
                 onChange={handleInputChange}
               />
             </div>
-            <a className = {styles.signup_link} href="/SignUp"> Create account.</a>
+            <a className = {styles.signup_link} href="/SignUp"> You don't have an account? Create one here!.</a>
             
             <button type="submit" className={styles.login_button}>
               Submit
